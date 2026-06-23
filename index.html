@@ -101,8 +101,360 @@
     
 
 
+<!-- ============================================================
+    ABOUT US SECTION — National Crown Movers
+    Replace the image src below with your own photo/asset path.
+    Replace the background-image url() in .about-us__bg with your
+    own background photo (a moving truck / road shot works well).
+    ============================================================ -->
+<section class="about-us">
+ <div class="about-us__bg"></div>
+ <div class="about-us__overlay"></div>
+
+ <div class="about-us__inner">
+   <div class="about-us__grid">
+
+     <div class="about-us__media">
+       <img
+         src="sh2.webp"
+         alt="National Crown Movers team carrying boxes into a home"
+         class="about-us__img"
+       />
+     </div>
+
+     <div class="about-us__content">
+       <h2 class="about-us__heading">
+         <span class="about-us__accent"> Sherwood Removals</span>
+       </h2>
+       <p class="about-us__text">
+         National Crown Movers has been helping South African homes and
+         businesses relocate with confidence for years. From a single
+         bedroom flat to a full office fit-out, our fleet of 1.5 to
+         30-ton trucks means no move is too big or too small. We pack,
+         load, transport and unpack with the same care we'd want for
+         our own belongings  on time, every time.
+       </p>
+       <a href="#booking" class="about-us__btn"><i class="fa-solid fa-truck-fast"></i> Book My Move </a>
+     </div>
+
+   </div>
+ </div>
+</section>
+
+<style>
+ .about-us {
+   position: relative;
+   overflow: hidden;
+   padding: 64px 20px;
+   color: #ffffff;
+   font-family: 'Poppins', Arial, sans-serif;
+ }
+
+ /* Background image — swap the url() for your own asset */
+ .about-us__bg {
+   position: absolute;
+   inset: 0;
+   background-image: url('sh1.webp');
+   background-size: cover;
+   background-attachment: fixed;
+   background-position: center;
+   z-index: 0;
+ }
+
+ /* Darkening overlay — increase the last rgba value for even lower lighting */
+ .about-us__overlay {
+   position: absolute;
+   inset: 0;
+   background: linear-gradient(
+     180deg,
+     rgba(10, 10, 10, 0.82) 0%,
+     rgba(10, 10, 10, 0.88) 100%
+   );
+   z-index: 1;
+ }
+
+ .about-us__inner {
+   position: relative;
+   z-index: 2;
+   max-width: 1140px;
+   margin: 0 auto;
+ }
+
+ .about-us__grid {
+   display: grid;
+   grid-template-columns: 1fr;
+   gap: 32px;
+   align-items: center;
+ }
+
+ .about-us__media {
+   display: none;
+   border-radius: 26px;
+   overflow: hidden;
+
+   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+ }
+
+ .about-us__img {
+  border: #339316 3px solid;
+   width: 75%;
+   height: 75%;
+   display: block;
+   object-fit: cover;
+ }
+
+ .about-us__content {
+   text-align: center;
+ }
+
+ .about-us__heading {
+   font-size: 28px;
+   font-weight: 700;
+   margin: 0 0 16px;
+   line-height: 1.2;
+ }
+
+ .about-us__accent {
+   color: #82cb72; /* gold accent, matches "Accredited" styling */
+ }
+
+ .about-us__text {
+   font-size: 15px;
+   line-height: 1.7;
+   color: #e8e8e8;
+   margin: 0 0 28px;
+ }
+
+ .about-us__btn {
+   display: inline-block;
+   background: linear-gradient(110deg, #24690f 0%, rgb(18, 58, 8) 100%);
+   color: #ffffff;
+   text-decoration: none;
+   font-weight: 700;
+   letter-spacing: 0.5px;
+   text-transform: uppercase;
+   font-size: 12px;
+   padding: 15px 28px;
+   border: 2px solid rgb(12, 172, 12);
+   border-radius: 25px;
+   transition: background 0.2s ease;
+ }
+
+ .about-us__btn:hover {
+   background: #841119;
+ }
+
+ /* ===== Desktop: image first column, content second column ===== */
+ @media (min-width: 768px) {
+   .about-us {
+     padding: 96px 40px;
+   }
+
+   .about-us__grid {
+     grid-template-columns: 1fr 1fr;
+     gap: 56px;
+   }
+
+   .about-us__media {
+     display: block;
+   }
+
+   .about-us__content {
+     text-align: left;
+   }
+
+   .about-us__heading {
+     font-size: 34px;
+   }
+
+   .about-us__text {
+     font-size: 16px;
+   }
+ }
+</style>
 
 
+
+
+
+<section class="services">
+  <h2 class="services__title">We specialize in</h2>
+  <p class="services__descr">From single-room moves to full office relocations, we've got every step covered.</p>
+
+  <div class="services__grid">
+
+    <a href="#" class="service-card">
+      <div class="service-card__image">
+        <img src="homem.webp" alt="House Removals">
+      </div>
+      <div class="service-card__title">
+        <span>House Removals</span>
+        <svg class="service-card__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        </svg>
+      </div>
+    </a>
+
+    <a href="#" class="service-card">
+      <div class="service-card__image">
+        <img src="officem.webp" alt="Office Removals">
+      </div>
+      <div class="service-card__title">
+        <span>Office Removals</span>
+        <svg class="service-card__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        </svg>
+      </div>
+    </a>
+
+    <a href="#" class="service-card">
+      <div class="service-card__image">
+        <img src="apartment .webp" alt="Managed Removal Service">
+      </div>
+      <div class="service-card__title">
+        <span>Apartment Removals</span>
+        <svg class="service-card__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        </svg>
+      </div>
+    </a>
+
+    <a href="#" class="service-card">
+      <div class="service-card__image">
+        <img src="storagem.webp" alt="Moving Overseas">
+      </div>
+      <div class="service-card__title">
+        <span>Storage Removals</span>
+        <svg class="service-card__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        </svg>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 40px 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services__title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color:  #24720c;
+  }
+
+  .services__descr {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    max-width: 560px;
+    margin: 0 auto 28px;
+    line-height: 1.5;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* always 2x2 on mobile, no matter how small */
+    gap: 14px;
+  }
+
+  .service-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .service-card__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+   
+  }
+
+  .service-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .service-card__title {
+    margin-top: 3px; /* keeps title close to image, not separated */
+    background: linear-gradient(110deg, #24690f 0%, rgb(18, 58, 8) 100%);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ 
+  }
+
+  .service-card__title span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+
+  .service-card__arrow {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: #e9e9e9;
+    margin-left: 8px;
+  }
+
+  /* Desktop: 4 across in a single row instead of 2x2 */
+  @media (min-width: 768px) {
+    .services__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .services__title {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    .services__descr {
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+    }
+
+    .service-card__title span {
+      font-size: 1rem;
+    }
+  }
+
+  /* Extra small phones: shrink padding/font slightly so 2x2 stays comfortable */
+  @media (max-width: 360px) {
+    .services__grid {
+      gap: 8px;
+    }
+
+    .service-card__title {
+      padding: 8px 10px;
+    }
+
+    .service-card__title span {
+      font-size: 0.8rem;
+    }
+
+    .service-card__arrow {
+      width: 14px;
+      height: 14px;
+    }
+  }
+</style>
 
       <script src="scripts.js"></script>
 </body>
