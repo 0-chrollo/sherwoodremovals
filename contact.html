@@ -653,7 +653,7 @@
               <div class="field full" style="position: relative;">
                 <label for="from">Moving from</label>
                 <div class="input-wrap">
-                  <input type="text" id="from" placeholder="e.g. Gqeberha" autocomplete="off" required>
+                  <input type="text" id="from" placeholder="e.g. Bluewater Bay" autocomplete="off" required>
                   <i class="fa-solid fa-map-pin icon"></i>
                 </div>
                 <div id="suggestionsFrom" class="autocomplete-suggestions"></div>
@@ -662,7 +662,7 @@
               <div class="field full" style="position: relative;">
                 <label for="to">Moving to</label>
                 <div class="input-wrap">
-                  <input type="text" id="to" placeholder="e.g. Johannesburg" autocomplete="off" required>
+                  <input type="text" id="to" placeholder="e.g. Sardinia Bay" autocomplete="off" required>
                   <i class="fa-solid fa-location-dot icon"></i>
                 </div>
                 <div id="suggestionsTo" class="autocomplete-suggestions"></div>
@@ -736,175 +736,193 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
     <script>
-        // Live LocationIQ Token configuration 
-        const LIQ_TOKEN = 'pk.d140fcf54225814f6e4a22db0fed7aa6';
+      // Live LocationIQ Token configuration 
+      const LIQ_TOKEN = 'pk.d140fcf54225814f6e4a22db0fed7aa6';
+  
+      // Mount Leaflet UI Map inside your form structure
+      const map = L.map('map-ui-frame', { zoomControl: false, attributionControl: false }).setView([-29, 24], 5);
+  
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          maxZoom: 20,
+          attribution: '&copy; OpenStreetMap &copy; CARTO'
+      }).addTo(map);
+  
+      let activeMarkers = [];
+      let activePolyline = null;
+      let selectedLocA = null;
+      let selectedLocB = null;
+  
+      // CUSTOM LOGO MARKER DESIGN
+      const customLogoIcon = L.icon({
+          iconUrl: 'logo.png', 
+          iconSize: [38, 38],   
+          iconAnchor: [19, 19], 
+          popupAnchor: [0, -19]
+      });
+  
+      // Hook fields up with immediate prediction triggers
+      setupAutocomplete(document.getElementById('from'), document.getElementById('suggestionsFrom'), 'A');
+      setupAutocomplete(document.getElementById('to'), document.getElementById('suggestionsTo'), 'B');
+  
+      // --- FORM SUBMIT INTERACTION HANDLING LOGIC ---
+      document.getElementById('quote-form').addEventListener('submit', function(e) {
+          // Prevent default browser page refresh sequence
+          e.preventDefault();
+  
+          // Check HTML5 native form validation rules
+          if (!this.checkValidity()) {
+              this.reportValidity();
+              return;
+          }
+  
+          const btn = document.getElementById('submit-btn');
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sending...</span>';
+          btn.disabled = true;
     
-        // Mount Leaflet UI Map inside your form structure
-        const map = L.map('map-ui-frame', { zoomControl: false, attributionControl: false }).setView([-29, 24], 5);
-    
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-            maxZoom: 20,
-            attribution: '&copy; OpenStreetMap &copy; CARTO'
-        }).addTo(map);
-    
-        let activeMarkers = [];
-        let activePolyline = null;
-        let selectedLocA = null;
-        let selectedLocB = null;
-    
-        // CUSTOM LOGO MARKER DESIGN
-        const customLogoIcon = L.icon({
-            iconUrl: 'shlogo.png', // Relative logo placement asset configuration path
-            iconSize: [32, 32],   
-            iconAnchor: [19, 19], 
-            popupAnchor: [0, -19]
-        });
-    
-        // Hook fields up with immediate prediction triggers
-        setupAutocomplete(document.getElementById('from'), document.getElementById('suggestionsFrom'), 'A');
-        setupAutocomplete(document.getElementById('to'), document.getElementById('suggestionsTo'), 'B');
-    
-        function setupAutocomplete(inputElem, suggestionsElem, type) {
-            let debounceTimer;
-    
-            inputElem.addEventListener('input', function() {
-                clearTimeout(debounceTimer);
-                let rawValue = this.value.trim();
-    
-                if (rawValue.length < 3) {
-                    suggestionsElem.innerHTML = '';
-                    return;
-                }
-    
-                // Extract house/plot numbers from the start of the string (e.g. "26 Ncwana" -> "26 ")
-                let houseNumberMatch = rawValue.match(/^(\d+\s*)/);
-                let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
-                let query = rawValue.replace(/^(\d+\s*)/, '').trim();
-    
-                if (query.length < 3) return;
-    
-                debounceTimer = setTimeout(async () => {
-                    try {
-                        const url = `https://api.locationiq.com/v1/autocomplete?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&limit=5&dedupe=1`;
-                        const res = await fetch(url);
-                        if (!res.ok) return;
-                        const data = await res.json();
-    
-                        suggestionsElem.innerHTML = '';
-    
-                        if (data && data.length > 0) {
-                            data.forEach(item => {
-                                const div = document.createElement('div');
-                                div.className = 'suggestion-item';
-                                
-                                div.innerText = houseNumber + item.display_name;
-                                
-                                div.addEventListener('click', () => {
-                                    inputElem.value = houseNumber + item.display_name;
-                                    suggestionsElem.innerHTML = '';
-                                    
-                                    const coordsObj = {
-                                        lat: parseFloat(item.lat),
-                                        lng: parseFloat(item.lon),
-                                        displayName: houseNumber + item.display_name
-                                    };
-    
-                                    if (type === 'A') selectedLocA = coordsObj;
-                                    if (type === 'B') selectedLocB = coordsObj;
-    
-                                    autoCalculateRoute();
-                                });
-                                suggestionsElem.appendChild(div);
-                            });
-                        }
-                    } catch (err) {
-                        console.error("Autocomplete processing error: ", err);
-                    }
-                }, 400);
-            });
-    
-            document.addEventListener('click', (e) => {
-                if (e.target !== inputElem) suggestionsElem.innerHTML = '';
-            });
-    
-            inputElem.addEventListener('blur', () => {
-                setTimeout(autoCalculateRoute, 300);
-            });
-        }
-    
-        async function fetchFallbackCoordinates(addressText) {
-            if (!addressText) return null;
-            let houseNumberMatch = addressText.match(/^(\d+\s*)/);
-            let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
-            let query = addressText.replace(/^(\d+\s*)/, '').trim();
-    
-            try {
-                const url = `https://us1.locationiq.com/v1/search?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&format=json&limit=1`;
-                const response = await fetch(url);
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    return {
-                        lat: parseFloat(data[0].lat),
-                        lng: parseFloat(data[0].lon),
-                        displayName: houseNumber + data[0].display_name
-                    };
-                }
-            } catch (e) {
-                console.error("Fallback processing error", e);
-            }
-            return null;
-        }
-    
-        async function autoCalculateRoute() {
-            const addrA = document.getElementById('from').value.trim();
-            const addrB = document.getElementById('to').value.trim();
-    
-            if (addrA.length < 3 || addrB.length < 3) return;
-    
-            try {
-                let locA = selectedLocA && selectedLocA.displayName === addrA ? selectedLocA : await fetchFallbackCoordinates(addrA);
-                let locB = selectedLocB && selectedLocB.displayName === addrB ? selectedLocB : await fetchFallbackCoordinates(addrB);
-    
-                if (!locA || !locB) return;
-    
-                const routeUrl = `https://us1.locationiq.com/v1/directions/driving/${locA.lng},${locA.lat};${locB.lng},${locB.lat}?key=${LIQ_TOKEN}&overview=full&geometries=geojson`;
-                const routeResponse = await fetch(routeUrl);
-                const routeData = await routeResponse.json();
-    
-                if (routeData.routes && routeData.routes.length > 0) {
-                    const route = routeData.routes[0];
-                    
-                    // Added constant + 2 buffer on top of kilometer output calculations
-                    const totalKm = Math.ceil(route.distance / 1000) + 4;
-    
-                    activeMarkers.forEach(m => map.removeLayer(m));
-                    if (activePolyline) map.removeLayer(activePolyline);
-                    activeMarkers = [];
-    
-                    document.getElementById('map-route-title').innerHTML = `${locA.displayName.split(',')[0]} <span style="color:#9CA3AF; margin:0 4px;">→</span> ${locB.displayName.split(',')[0]}`;
-                    document.getElementById('map-route-distance').innerText = `${totalKm} km`;
-    
-                    const pinA = L.marker([locA.lat, locA.lng], { icon: customLogoIcon }).addTo(map);
-                    const pinB = L.marker([locB.lat, locB.lng], { icon: customLogoIcon }).addTo(map);
-                    activeMarkers.push(pinA, pinB);
-    
-                    const routeCoords = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
-    
-                    // Line path vector configuration colored green (#10B981)
-                    activePolyline = L.polyline(routeCoords, {
-                        color: '#10B981', 
-                        weight: 5,
-                        opacity: 0.85
-                    }).addTo(map);
-    
-                    map.fitBounds(activePolyline.getBounds(), { padding: [30, 30] });
-                }
-            } catch (error) {
-                console.error("Auto calculation stream error:", error);
-            }
-        }
-    </script>
-
+          setTimeout(() => {
+              document.getElementById('quote-form').style.display = 'none';
+              document.getElementById('form-header').style.display = 'none';
+              document.getElementById('success').style.display = 'flex';
+          }, 1400);
+      });
+      // --- END FORM SUBMIT INTERACTION ---
+  
+      function setupAutocomplete(inputElem, suggestionsElem, type) {
+          let debounceTimer;
+  
+          inputElem.addEventListener('input', function() {
+              clearTimeout(debounceTimer);
+              let rawValue = this.value.trim();
+  
+              if (rawValue.length < 3) {
+                  suggestionsElem.innerHTML = '';
+                  return;
+              }
+  
+              let houseNumberMatch = rawValue.match(/^(\d+\s*)/);
+              let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
+              let query = rawValue.replace(/^(\d+\s*)/, '').trim();
+  
+              if (query.length < 3) return;
+  
+              debounceTimer = setTimeout(async () => {
+                  try {
+                      const url = `https://api.locationiq.com/v1/autocomplete?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&limit=5&dedupe=1`;
+                      const res = await fetch(url);
+                      if (!res.ok) return;
+                      const data = await res.json();
+  
+                      suggestionsElem.innerHTML = '';
+  
+                      if (data && data.length > 0) {
+                          data.forEach(item => {
+                              const div = document.createElement('div');
+                              div.className = 'suggestion-item';
+                              
+                              div.innerText = houseNumber + item.display_name;
+                              
+                              div.addEventListener('click', () => {
+                                  inputElem.value = houseNumber + item.display_name;
+                                  suggestionsElem.innerHTML = '';
+                                  
+                                  const coordsObj = {
+                                      lat: parseFloat(item.lat),
+                                      lng: parseFloat(item.lon),
+                                      displayName: houseNumber + item.display_name
+                                  };
+  
+                                  if (type === 'A') selectedLocA = coordsObj;
+                                  if (type === 'B') selectedLocB = coordsObj;
+  
+                                  autoCalculateRoute();
+                              });
+                              suggestionsElem.appendChild(div);
+                          });
+                      }
+                  } catch (err) {
+                      console.error("Autocomplete processing error: ", err);
+                  }
+              }, 400);
+          });
+  
+          document.addEventListener('click', (e) => {
+              if (e.target !== inputElem) suggestionsElem.innerHTML = '';
+          });
+  
+          inputElem.addEventListener('blur', () => {
+              setTimeout(autoCalculateRoute, 300);
+          });
+      }
+  
+      async function fetchFallbackCoordinates(addressText) {
+          if (!addressText) return null;
+          let houseNumberMatch = addressText.match(/^(\d+\s*)/);
+          let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
+          let query = addressText.replace(/^(\d+\s*)/, '').trim();
+  
+          try {
+              const url = `https://us1.locationiq.com/v1/search?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&format=json&limit=1`;
+              const response = await fetch(url);
+              const data = await response.json();
+              if (data && data.length > 0) {
+                  return {
+                      lat: parseFloat(data[0].lat),
+                      lng: parseFloat(data[0].lon),
+                      displayName: houseNumber + data[0].display_name
+                  };
+              }
+          } catch (e) {
+              console.error("Fallback processing error", e);
+          }
+          return null;
+      }
+  
+      async function autoCalculateRoute() {
+          const addrA = document.getElementById('from').value.trim();
+          const addrB = document.getElementById('to').value.trim();
+  
+          if (addrA.length < 3 || addrB.length < 3) return;
+  
+          try {
+              let locA = selectedLocA && selectedLocA.displayName === addrA ? selectedLocA : await fetchFallbackCoordinates(addrA);
+              let locB = selectedLocB && selectedLocB.displayName === addrB ? selectedLocB : await fetchFallbackCoordinates(addrB);
+  
+              if (!locA || !locB) return;
+  
+              const routeUrl = `https://us1.locationiq.com/v1/directions/driving/${locA.lng},${locA.lat};${locB.lng},${locB.lat}?key=${LIQ_TOKEN}&overview=full&geometries=geojson`;
+              const routeResponse = await fetch(routeUrl);
+              const routeData = await routeResponse.json();
+  
+              if (routeData.routes && routeData.routes.length > 0) {
+                  const route = routeData.routes[0];
+                  const totalKm = Math.ceil(route.distance / 1000) + 2;
+  
+                  activeMarkers.forEach(m => map.removeLayer(m));
+                  if (activePolyline) map.removeLayer(activePolyline);
+                  activeMarkers = [];
+  
+                  document.getElementById('map-route-title').innerHTML = `${locA.displayName.split(',')[0]} <span style="color:#9CA3AF; margin:0 4px;">→</span> ${locB.displayName.split(',')[0]}`;
+                  document.getElementById('map-route-distance').innerText = `${totalKm} km`;
+  
+                  const pinA = L.marker([locA.lat, locA.lng], { icon: customLogoIcon }).addTo(map);
+                  const pinB = L.marker([locB.lat, locB.lng], { icon: customLogoIcon }).addTo(map);
+                  activeMarkers.push(pinA, pinB);
+  
+                  const routeCoords = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
+  
+                  activePolyline = L.polyline(routeCoords, {
+                      color: '#10B981', 
+                      weight: 5,
+                      opacity: 0.85
+                  }).addTo(map);
+  
+                  map.fitBounds(activePolyline.getBounds(), { padding: [30, 30] });
+              }
+          } catch (error) {
+              console.error("Auto calculation stream error:", error);
+          }
+      }
+  </script>
   
 <script src="scripts.js"></script>
 
