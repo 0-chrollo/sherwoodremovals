@@ -96,8 +96,10 @@
           align-items: center;
           justify-content: center;
           padding: 2rem 1rem;
+          position: relative;
+          z-index: 10; /* Lifts the entire section above any wrapping links */
         }
-     
+      
         .card {
           display: grid;
           grid-template-columns: 1fr 1.3fr;
@@ -106,8 +108,10 @@
           border-radius: 1px;
           overflow: hidden;
           box-shadow: 0 24px 64px rgba(15,31,69,0.18);
+          position: relative;
+          z-index: 11;
         }
-     
+      
         /* LEFT COLUMN */
         .left {
           background: linear-gradient(110deg, #24690f 0%, rgb(18, 58, 8) 100%) ;
@@ -118,7 +122,7 @@
           position: relative;
           overflow: hidden;
         }
-     
+      
         .left::before {
           content: '';
           position: absolute;
@@ -131,7 +135,7 @@
           left: -80px;
           pointer-events: none;
         }
-     
+      
         .left::after {
           content: '';
           position: absolute;
@@ -144,14 +148,14 @@
           right: -40px;
           pointer-events: none;
         }
-     
+      
         .brand {
           display: flex;
           align-items: center;
           gap: 10px;
           margin-bottom: 2.5rem;
         }
-     
+      
         .brand-icon {
           width: 42px;
           height: 42px;
@@ -164,7 +168,7 @@
           font-size: 18px;
           flex-shrink: 0;
         }
-     
+      
         .brand-name {
           font-family: 'Barlow Condensed', sans-serif;
           font-size: 17px;
@@ -174,7 +178,7 @@
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
-     
+      
         .brand-name span {
           display: block;
           font-size: 11px;
@@ -182,7 +186,7 @@
           color: #F5C842;
           letter-spacing: 2px;
         }
-     
+      
         .left-heading {
           font-family: 'Barlow Condensed', sans-serif;
           font-size: 42px;
@@ -192,19 +196,19 @@
           margin-bottom: 1rem;
           text-transform: uppercase;
         }
-     
+      
         .left-heading em {
           font-style: normal;
           color: #52c649;
         }
-     
+      
         .left-sub {
           font-size: 13.5px;
           color: rgba(255,255,255,0.65);
           line-height: 1.7;
           margin-bottom: 2.5rem;
         }
-     
+      
         .contact-list {
           list-style: none;
           display: flex;
@@ -212,7 +216,7 @@
           gap: 1rem;
           margin-bottom: 2.5rem;
         }
-     
+      
         .contact-list li {
           display: flex;
           align-items: center;
@@ -220,7 +224,7 @@
           color: #ffffff;
           font-size: 13px;
         }
-     
+      
         .contact-icon {
           width: 34px;
           height: 34px;
@@ -232,9 +236,9 @@
           font-size: 13px;
           flex-shrink: 0;
         }
-     
+      
         .contact-detail { display: flex; flex-direction: column; }
-     
+      
         .contact-label {
           font-size: 10px;
           text-transform: uppercase;
@@ -242,19 +246,19 @@
           color: rgb(255, 255, 255);
           margin-bottom: 1px;
         }
-     
+      
         .contact-value {
           font-size: 13px;
           color: #ffffff;
           font-weight: 500;
         }
-     
+      
         .trust-badges {
           display: flex;
           gap: 7px;
           flex-wrap: wrap;
         }
-     
+      
         .badge {
           display: flex;
           align-items: center;
@@ -266,17 +270,19 @@
           font-size: 11px;
           color: rgba(255,255,255,0.65);
         }
-     
+      
         .badge i { color: #F5C842; font-size: 10px; }
-     
+      
         /* RIGHT COLUMN */
         .right {
           background: #ffffff;
           padding: 2.5rem 2.25rem;
+          position: relative;
+          z-index: 12; /* Elevates form interactions directly */
         }
-     
+      
         .form-header { margin-bottom: 1.5rem; }
-     
+      
         .form-eyebrow {
           display: inline-flex;
           align-items: center;
@@ -288,7 +294,7 @@
           color: #34a81a;
           margin-bottom: 6px;
         }
-     
+      
         .form-title {
           font-family: 'Barlow Condensed', sans-serif;
           font-size: 26px;
@@ -297,17 +303,16 @@
           text-transform: uppercase;
           line-height: 1.1;
         }
-     
-        /* Always 2 columns — no collapse on mobile */
+      
         .form-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 10px;
         }
-     
+      
         .field { display: flex; flex-direction: column; gap: 5px; }
         .field.full { grid-column: 1 / -1; }
-     
+      
         .field label {
           font-size: 10px;
           font-weight: 600;
@@ -315,9 +320,9 @@
           letter-spacing: 1px;
           color: #6B7280;
         }
-     
+      
         .input-wrap { position: relative; }
-     
+      
         .input-wrap i.icon {
           position: absolute;
           left: 11px;
@@ -327,8 +332,9 @@
           font-size: 12px;
           transition: color 0.2s;
           pointer-events: none;
+          z-index: 15;
         }
-     
+      
         .input-wrap input,
         .input-wrap select,
         .input-wrap textarea {
@@ -344,16 +350,18 @@
           transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
           appearance: none;
           -webkit-appearance: none;
+          position: relative;
+          z-index: 14; /* Forces form elements to catch input focus actions cleanly */
         }
-     
+      
         .input-wrap textarea {
           resize: none;
           height: 78px;
           padding-top: 12px;
         }
-     
+      
         .input-wrap:focus-within i.icon { color: #1A2E5A; }
-     
+      
         .input-wrap input:focus,
         .input-wrap select:focus,
         .input-wrap textarea:focus {
@@ -361,7 +369,7 @@
           background: #fff;
           box-shadow: 0 0 0 3px rgba(26,46,90,0.07);
         }
-     
+      
         .input-wrap .chevron {
           position: absolute;
           right: 10px;
@@ -370,8 +378,9 @@
           color: #C0C4CC;
           font-size: 10px;
           pointer-events: none;
+          z-index: 15;
         }
-     
+      
         .date-hint {
           font-size: 10px;
           color: #9CA3AF;
@@ -379,7 +388,7 @@
           align-items: center;
           gap: 3px;
         }
-     
+      
         /* PREMIUM MAP DISPLAY INTERNAL OVERRIDES */
         .map-card {
           grid-column: 1 / -1;
@@ -392,13 +401,13 @@
           flex-direction: column;
           overflow: hidden;
         }
-    
+      
         #map-ui-frame {
           width: 100%;
           height: 230px;
           background: #FAFAFA;
         }
-    
+      
         #map-details-overlay {
           padding: 12px 16px;
           background: #FFFFFF;
@@ -407,19 +416,19 @@
           justify-content: space-between;
           align-items: center;
         }
-    
+      
         #map-route-title {
           font-size: 12px;
           font-weight: 600;
           color: #0F1F45;
         }
-    
+      
         #map-route-distance {
           font-size: 15px;
           font-weight: 700;
           color: #10B981;
         }
-    
+      
         /* Floating Autocomplete Suggestions Wrapper */
         .autocomplete-suggestions {
           position: absolute;
@@ -435,7 +444,7 @@
           overflow-y: auto;
           z-index: 9999;
         }
-    
+      
         .suggestion-item {
           padding: 9px 12px;
           font-size: 12px;
@@ -446,20 +455,20 @@
           text-overflow: ellipsis;
           border-bottom: 1px solid #F3F4F6;
         }
-    
+      
         .suggestion-item:last-child { border-bottom: none; }
         .suggestion-item:hover { background: #F3F4F6; color: #0F1F45; }
-     
+      
         .divider {
           border: none;
           border-top: 1px solid #F0F1F3;
           margin: 1.1rem 0;
         }
-     
+      
         .submit-wrap {
           text-align: center;
         }
-     
+      
         .submit-btn {
           display: inline-flex;
           align-items: center;
@@ -478,12 +487,14 @@
           letter-spacing: 1px;
           cursor: pointer;
           transition: background 0.2s, transform 0.15s;
+          position: relative;
+          z-index: 15;
         }
-     
+      
         .submit-btn:hover { background: #1A2E5A; }
         .submit-btn:active { transform: scale(0.98); }
         .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-     
+      
         .form-note {
           text-align: center;
           font-size: 11px;
@@ -494,9 +505,9 @@
           justify-content: center;
           gap: 4px;
         }
-     
+      
         .form-note i { color: #c09227; }
-     
+      
         /* SUCCESS */
         .success-overlay {
           display: none;
@@ -508,7 +519,7 @@
           gap: 1rem;
           padding: 2rem;
         }
-     
+      
         .success-icon {
           width: 60px;
           height: 60px;
@@ -520,7 +531,7 @@
           font-size: 24px;
           color: #27A261;
         }
-     
+      
         .success-title {
           font-family: 'Barlow Condensed', sans-serif;
           font-size: 24px;
@@ -528,405 +539,405 @@
           color: #0F1F45;
           text-transform: uppercase;
         }
-     
+      
         .success-sub {
           font-size: 13px;
           color: #6B7280;
           line-height: 1.6;
           max-width: 260px;
         }
-     
-        /* RESPONSIVE — card stacks but form stays 2 col */
+      
+        /* RESPONSIVE */
         @media (max-width: 680px) {
           .mform { padding: 0.75rem; }
-     
+      
           .card {
             grid-template-columns: 1fr;
             border-radius: 1px;
           }
-     
+      
           .left {
             padding: 2rem 1.5rem;
           }
-     
+      
           .left-heading { font-size: 32px; }
           .left-sub { margin-bottom: 1.5rem; }
           .contact-list { margin-bottom: 1.5rem; }
-     
+      
           .right {
             padding: 1.75rem 1.25rem;
           }
-     
-          /* form stays 2 columns — just tighter */
+      
           .form-grid { gap: 8px; }
-     
+      
           .input-wrap input,
           .input-wrap select,
           .input-wrap textarea {
             font-size: 12px;
             padding: 8px 8px 8px 28px;
           }
-     
+      
           .input-wrap i.icon { font-size: 11px; left: 9px; }
         }
-    </style>
-     
-     
-    <section class="mform">
-      <div class="card">
-     
-        <div class="left">
-          <div>
-            <div class="brand">
-              <div class="brand-icon"><i class="fa-solid fa-truck-moving"></i></div>
-              <div class="brand-name">
-                Sherwood Removals
+      </style>
+         
+         
+      <section class="mform" id="mform-section">
+        <div class="card">
+         
+          <div class="left">
+            <div>
+              <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-truck-moving"></i></div>
+                <div class="brand-name">
+                  Sherwood Removals
+                </div>
               </div>
+         
+              <h2 class="left-heading">Move with<br><em>confidence.</em></h2>
+              <ul class="contact-list">
+                <li>
+                  <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                  <div class="contact-detail">
+                    <span class="contact-label">Call / WhatsApp</span>
+                    <span class="contact-value">075 001 4548</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                  <div class="contact-detail">
+                    <span class="contact-label">Email us</span>
+                    <span class="contact-value">shaidrianp@gmail.com</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                  <div class="contact-detail">
+                    <span class="contact-label">Based in</span>
+                    <span class="contact-value">Sherwood, Gqeberha</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+                  <div class="contact-detail">
+                    <span class="contact-label">Operating hours</span>
+                    <span class="contact-value">Always open</span>
+                  </div>
+                </li>
+              </ul>
             </div>
-     
-            <h2 class="left-heading">Move with<br><em>confidence.</em></h2>
-            <ul class="contact-list">
-              <li>
-                <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
-                <div class="contact-detail">
-                  <span class="contact-label">Call / WhatsApp</span>
-                  <span class="contact-value">075 001 4548</span>
-                </div>
-              </li>
-              <li>
-                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
-                <div class="contact-detail">
-                  <span class="contact-label">Email us</span>
-                  <span class="contact-value">shaidrianp@gmail.com</span>
-                </div>
-              </li>
-              <li>
-                <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-                <div class="contact-detail">
-                  <span class="contact-label">Based in</span>
-                  <span class="contact-value">Sherwood, Gqeberha</span>
-                </div>
-              </li>
-              <li>
-                <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
-                <div class="contact-detail">
-                  <span class="contact-label">Operating hours</span>
-                  <span class="contact-value">Always open</span>
-                </div>
-              </li>
-            </ul>
           </div>
+          
+          <div class="right" id="form-side">
+            <div class="form-header" id="form-header">
+              <h3 class="form-title">Get your quote</h3>
+            </div>
+         
+            <form id="quote-form" novalidate>
+              <div class="form-grid">
+         
+                <div class="field full">
+                  <label for="fullname">Full name</label>
+                  <div class="input-wrap">
+                    <input type="text" id="fullname" placeholder="e.g. Sipho Dlamini" required>
+                    <i class="fa-solid fa-user icon"></i>
+                  </div>
+                </div>
+         
+                <div class="field">
+                  <label for="phone">Phone number</label>
+                  <div class="input-wrap">
+                    <input type="tel" id="phone" placeholder="071 234 5678" required>
+                    <i class="fa-solid fa-phone icon"></i>
+                  </div>
+                </div>
+         
+                <div class="field">
+                  <label for="email">Email address</label>
+                  <div class="input-wrap">
+                    <input type="email" id="email" placeholder="you@example.com">
+                    <i class="fa-solid fa-envelope icon"></i>
+                  </div>
+                </div>
+         
+                <div class="field full" style="position: relative;">
+                  <label for="from">Moving from</label>
+                  <div class="input-wrap">
+                    <input type="text" id="from" placeholder="e.g. Bluewater Bay" autocomplete="off" required>
+                    <i class="fa-solid fa-map-pin icon"></i>
+                  </div>
+                  <div id="suggestionsFrom" class="autocomplete-suggestions"></div>
+                </div>
+         
+                <div class="field full" style="position: relative;">
+                  <label for="to">Moving to</label>
+                  <div class="input-wrap">
+                    <input type="text" id="to" placeholder="e.g. Sardinia Bay" autocomplete="off" required>
+                    <i class="fa-solid fa-location-dot icon"></i>
+                  </div>
+                  <div id="suggestionsTo" class="autocomplete-suggestions"></div>
+                </div>
+         
+                <div class="field">
+                  <label for="move-date">Moving date</label>
+                  <div class="input-wrap">
+                    <input type="date" id="move-date" required>
+                    <i class="fa-solid fa-calendar-days icon"></i>
+                  </div>
+                  <span class="date-hint"><i class="fa-solid fa-circle-info"></i> Book early to secure your truck</span>
+                </div>
+         
+                <div class="field">
+                  <label for="service">Service</label>
+                  <div class="input-wrap">
+                    <select id="service" required>
+                      <option value="">Select a service</option>
+                      <option>Home Removals</option>
+                      <option>Office Removals</option>
+                      <option>Apartment Removals</option>
+                      <option>Storage Removals</option>
+                    </select>
+                    <i class="fa-solid fa-boxes-stacked icon"></i>
+                    <i class="fa-solid fa-chevron-down chevron"></i>
+                  </div>
+                </div>
+         
+                <div class="field full">
+                  <label for="notes">Anything we should know?</label>
+                  <div class="input-wrap">
+                    <textarea id="notes" placeholder="e.g. fragile items, stairs, piano, special access..."></textarea>
+                    <i class="fa-solid fa-note-sticky icon" style="top:14px;transform:none;"></i>
+                  </div>
+                </div>
+         
+                <div class="map-card" id="map-card">
+                  <div id="map-ui-frame"></div>
+                  <div id="map-details-overlay">
+                     <div id="map-route-title">Route Distance:</div>
+                     <div id="map-route-distance">0 km</div>
+                  </div>
+                </div>
+         
+              </div>
+         
+              <hr class="divider">
+         
+              <div class="submit-wrap">
+                <button type="submit" class="submit-btn" id="submit-btn">
+                  <i class="fa-solid fa-truck-fast"></i>
+                  <span>Get A Quote</span>
+                </button>
+              </div>
+         
+              <p class="form-note"><i class="fa-solid fa-lock"></i> Your details are safe. We'll be in touch shortly <p>
+            </form>
+         
+            <div class="success-overlay" id="success">
+              <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+              <p class="success-title">Request sent!</p>
+              <p class="success-sub">Sherwood Removals team will call or WhatsApp you shortly to confirm your booking.</p>
+            </div>
+          </div>
+         
         </div>
-        <div class="right" id="form-side">
-          <div class="form-header" id="form-header">
-            <h3 class="form-title">Get your quote</h3>
-          </div>
-     
-          <form id="quote-form" novalidate>
-            <div class="form-grid">
-     
-              <div class="field full">
-                <label for="fullname">Full name</label>
-                <div class="input-wrap">
-                  <input type="text" id="fullname" placeholder="e.g. Sipho Dlamini" required>
-                  <i class="fa-solid fa-user icon"></i>
-                </div>
-              </div>
-     
-              <div class="field">
-                <label for="phone">Phone number</label>
-                <div class="input-wrap">
-                  <input type="tel" id="phone" placeholder="071 234 5678" required>
-                  <i class="fa-solid fa-phone icon"></i>
-                </div>
-              </div>
-     
-              <div class="field">
-                <label for="email">Email address</label>
-                <div class="input-wrap">
-                  <input type="email" id="email" placeholder="you@example.com">
-                  <i class="fa-solid fa-envelope icon"></i>
-                </div>
-              </div>
-     
-              <div class="field full" style="position: relative;">
-                <label for="from">Moving from</label>
-                <div class="input-wrap">
-                  <input type="text" id="from" placeholder="e.g. Bluewater Bay" autocomplete="off" required>
-                  <i class="fa-solid fa-map-pin icon"></i>
-                </div>
-                <div id="suggestionsFrom" class="autocomplete-suggestions"></div>
-              </div>
-     
-              <div class="field full" style="position: relative;">
-                <label for="to">Moving to</label>
-                <div class="input-wrap">
-                  <input type="text" id="to" placeholder="e.g. Sardinia Bay" autocomplete="off" required>
-                  <i class="fa-solid fa-location-dot icon"></i>
-                </div>
-                <div id="suggestionsTo" class="autocomplete-suggestions"></div>
-              </div>
-     
-              <div class="field">
-                <label for="move-date">Moving date</label>
-                <div class="input-wrap">
-                  <input type="date" id="move-date" required>
-                  <i class="fa-solid fa-calendar-days icon"></i>
-                </div>
-                <span class="date-hint"><i class="fa-solid fa-circle-info"></i> Book early to secure your truck</span>
-              </div>
-     
-              <div class="field">
-                <label for="service">Service</label>
-                <div class="input-wrap">
-                  <select id="service" required>
-                    <option value="">Select a service</option>
-                    <option>Home Removals</option>
-                    <option>Office Removals</option>
-                    <option>Apartment Removals</option>
-                    <option>Storage Removals</option>
-                  </select>
-                  <i class="fa-solid fa-boxes-stacked icon"></i>
-                  <i class="fa-solid fa-chevron-down chevron"></i>
-                </div>
-              </div>
-     
-              <div class="field full">
-                <label for="notes">Anything we should know?</label>
-                <div class="input-wrap">
-                  <textarea id="notes" placeholder="e.g. fragile items, stairs, piano, special access..."></textarea>
-                  <i class="fa-solid fa-note-sticky icon" style="top:14px;transform:none;"></i>
-                </div>
-              </div>
-     
-              <div class="map-card" id="map-card">
-                <div id="map-ui-frame"></div>
-                <div id="map-details-overlay">
-                   <div id="map-route-title">Route Distance:</div>
-                   <div id="map-route-distance">0 km</div>
-                </div>
-              </div>
-     
-            </div>
-     
-            <hr class="divider">
-     
-            <div class="submit-wrap">
-              <button type="submit" class="submit-btn" id="submit-btn">
-                <i class="fa-solid fa-truck-fast"></i>
-                <span>Get A Quote</span>
-              </button>
-            </div>
-     
-            <p class="form-note"><i class="fa-solid fa-lock"></i> Your details are safe. We'll be in touch shortly <p>
-          </form>
-     
-          <div class="success-overlay" id="success">
-            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
-            <p class="success-title">Request sent!</p>
-            <p class="success-sub">Sherwood Removals team will call or WhatsApp you shortly to confirm your booking.</p>
-          </div>
-        </div>
-     
-      </div>
-    </section>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <script>
-      // Live LocationIQ Token configuration 
-      const LIQ_TOKEN = 'pk.d140fcf54225814f6e4a22db0fed7aa6';
-  
-      // Mount Leaflet UI Map inside your form structure
-      const map = L.map('map-ui-frame', { zoomControl: false, attributionControl: false }).setView([-29, 24], 5);
-  
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-          maxZoom: 20,
-          attribution: '&copy; OpenStreetMap &copy; CARTO'
-      }).addTo(map);
-  
-      let activeMarkers = [];
-      let activePolyline = null;
-      let selectedLocA = null;
-      let selectedLocB = null;
-  
-      // CUSTOM LOGO MARKER DESIGN
-      const customLogoIcon = L.icon({
-          iconUrl: 'shlogo.png', 
-          iconSize: [31, 31],   
-          iconAnchor: [19, 19], 
-          popupAnchor: [0, -19]
-      });
-  
-      // Hook fields up with immediate prediction triggers
-      setupAutocomplete(document.getElementById('from'), document.getElementById('suggestionsFrom'), 'A');
-      setupAutocomplete(document.getElementById('to'), document.getElementById('suggestionsTo'), 'B');
-  
-      // --- FORM SUBMIT INTERACTION HANDLING LOGIC ---
-      document.getElementById('quote-form').addEventListener('submit', function(e) {
-          // Prevent default browser page refresh sequence
-          e.preventDefault();
-  
-          // Check HTML5 native form validation rules
-          if (!this.checkValidity()) {
-              this.reportValidity();
-              return;
-          }
-  
-          const btn = document.getElementById('submit-btn');
-          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sending...</span>';
-          btn.disabled = true;
-    
-          setTimeout(() => {
-              document.getElementById('quote-form').style.display = 'none';
-              document.getElementById('form-header').style.display = 'none';
-              document.getElementById('success').style.display = 'flex';
-          }, 1400);
-      });
-      // --- END FORM SUBMIT INTERACTION ---
-  
-      function setupAutocomplete(inputElem, suggestionsElem, type) {
-          let debounceTimer;
-  
-          inputElem.addEventListener('input', function() {
-              clearTimeout(debounceTimer);
-              let rawValue = this.value.trim();
-  
-              if (rawValue.length < 3) {
-                  suggestionsElem.innerHTML = '';
-                  return;
-              }
-  
-              let houseNumberMatch = rawValue.match(/^(\d+\s*)/);
-              let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
-              let query = rawValue.replace(/^(\d+\s*)/, '').trim();
-  
-              if (query.length < 3) return;
-  
-              debounceTimer = setTimeout(async () => {
-                  try {
-                      const url = `https://api.locationiq.com/v1/autocomplete?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&limit=5&dedupe=1`;
-                      const res = await fetch(url);
-                      if (!res.ok) return;
-                      const data = await res.json();
-  
-                      suggestionsElem.innerHTML = '';
-  
-                      if (data && data.length > 0) {
-                          data.forEach(item => {
-                              const div = document.createElement('div');
-                              div.className = 'suggestion-item';
-                              
-                              div.innerText = houseNumber + item.display_name;
-                              
-                              div.addEventListener('click', () => {
-                                  inputElem.value = houseNumber + item.display_name;
-                                  suggestionsElem.innerHTML = '';
-                                  
-                                  const coordsObj = {
-                                      lat: parseFloat(item.lat),
-                                      lng: parseFloat(item.lon),
-                                      displayName: houseNumber + item.display_name
-                                  };
-  
-                                  if (type === 'A') selectedLocA = coordsObj;
-                                  if (type === 'B') selectedLocB = coordsObj;
-  
-                                  autoCalculateRoute();
-                              });
-                              suggestionsElem.appendChild(div);
-                          });
-                      }
-                  } catch (err) {
-                      console.error("Autocomplete processing error: ", err);
-                  }
-              }, 400);
-          });
-  
-          document.addEventListener('click', (e) => {
-              if (e.target !== inputElem) suggestionsElem.innerHTML = '';
-          });
-  
-          inputElem.addEventListener('blur', () => {
-              setTimeout(autoCalculateRoute, 300);
-          });
-      }
-  
-      async function fetchFallbackCoordinates(addressText) {
-          if (!addressText) return null;
-          let houseNumberMatch = addressText.match(/^(\d+\s*)/);
-          let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
-          let query = addressText.replace(/^(\d+\s*)/, '').trim();
-  
-          try {
-              const url = `https://us1.locationiq.com/v1/search?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&format=json&limit=1`;
-              const response = await fetch(url);
-              const data = await response.json();
-              if (data && data.length > 0) {
-                  return {
-                      lat: parseFloat(data[0].lat),
-                      lng: parseFloat(data[0].lon),
-                      displayName: houseNumber + data[0].display_name
-                  };
-              }
-          } catch (e) {
-              console.error("Fallback processing error", e);
-          }
-          return null;
-      }
-  
-      async function autoCalculateRoute() {
-          const addrA = document.getElementById('from').value.trim();
-          const addrB = document.getElementById('to').value.trim();
-  
-          if (addrA.length < 3 || addrB.length < 3) return;
-  
-          try {
-              let locA = selectedLocA && selectedLocA.displayName === addrA ? selectedLocA : await fetchFallbackCoordinates(addrA);
-              let locB = selectedLocB && selectedLocB.displayName === addrB ? selectedLocB : await fetchFallbackCoordinates(addrB);
-  
-              if (!locA || !locB) return;
-  
-              const routeUrl = `https://us1.locationiq.com/v1/directions/driving/${locA.lng},${locA.lat};${locB.lng},${locB.lat}?key=${LIQ_TOKEN}&overview=full&geometries=geojson`;
-              const routeResponse = await fetch(routeUrl);
-              const routeData = await routeResponse.json();
-  
-              if (routeData.routes && routeData.routes.length > 0) {
-                  const route = routeData.routes[0];
-                  const totalKm = Math.ceil(route.distance / 1000) + 2;
-  
-                  activeMarkers.forEach(m => map.removeLayer(m));
-                  if (activePolyline) map.removeLayer(activePolyline);
-                  activeMarkers = [];
-  
-                  document.getElementById('map-route-title').innerHTML = `${locA.displayName.split(',')[0]} <span style="color:#9CA3AF; margin:0 4px;">→</span> ${locB.displayName.split(',')[0]}`;
-                  document.getElementById('map-route-distance').innerText = `${totalKm} km`;
-  
-                  const pinA = L.marker([locA.lat, locA.lng], { icon: customLogoIcon }).addTo(map);
-                  const pinB = L.marker([locB.lat, locB.lng], { icon: customLogoIcon }).addTo(map);
-                  activeMarkers.push(pinA, pinB);
-  
-                  const routeCoords = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
-  
-                  activePolyline = L.polyline(routeCoords, {
-                      color: '#10B981', 
-                      weight: 5,
-                      opacity: 0.85
-                  }).addTo(map);
-  
-                  map.fitBounds(activePolyline.getBounds(), { padding: [30, 30] });
-              }
-          } catch (error) {
-              console.error("Auto calculation stream error:", error);
-          }
-      }
-  </script>
-
-
-
-
-
+      </section>
+         
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+         
+      <script>
+        // EVENT BUBBLING PROTECTION KILL SWITCH:
+        // Intercepts any click events inside this component and prevents them from bubbling up to layout files or rogue external link wrappers.
+        document.getElementById('mform-section').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+      
+        // Live LocationIQ Token configuration 
+        const LIQ_TOKEN = 'pk.d140fcf54225814f6e4a22db0fed7aa6';
+      
+        // Mount Leaflet UI Map inside your form structure
+        const map = L.map('map-ui-frame', { zoomControl: false, attributionControl: false }).setView([-29, 24], 5);
+      
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            maxZoom: 20,
+            attribution: '&copy; OpenStreetMap &copy; CARTO'
+        }).addTo(map);
+      
+        let activeMarkers = [];
+        let activePolyline = null;
+        let selectedLocA = null;
+        let selectedLocB = null;
+      
+        // CUSTOM LOGO MARKER DESIGN
+        const customLogoIcon = L.icon({
+            iconUrl: 'shlogo.png', 
+            iconSize: [31, 31],   
+            iconAnchor: [19, 19], 
+            popupAnchor: [0, -19]
+        });
+      
+        // Hook fields up with immediate prediction triggers
+        setupAutocomplete(document.getElementById('from'), document.getElementById('suggestionsFrom'), 'A');
+        setupAutocomplete(document.getElementById('to'), document.getElementById('suggestionsTo'), 'B');
+      
+        // --- FORM SUBMIT INTERACTION HANDLING LOGIC ---
+        document.getElementById('quote-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+      
+            // Check HTML5 native form validation rules
+            if (!this.checkValidity()) {
+                this.reportValidity();
+                return;
+            }
+      
+            const btn = document.getElementById('submit-btn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sending...</span>';
+            btn.disabled = true;
+      
+            setTimeout(() => {
+                document.getElementById('quote-form').style.display = 'none';
+                document.getElementById('form-header').style.display = 'none';
+                document.getElementById('success').style.display = 'flex';
+            }, 1400);
+        });
+        // --- END FORM SUBMIT INTERACTION ---
+      
+        function setupAutocomplete(inputElem, suggestionsElem, type) {
+            let debounceTimer;
+      
+            inputElem.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                let rawValue = this.value.trim();
+      
+                if (rawValue.length < 3) {
+                    suggestionsElem.innerHTML = '';
+                    return;
+                }
+      
+                let houseNumberMatch = rawValue.match(/^(\d+\s*)/);
+                let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
+                let query = rawValue.replace(/^(\d+\s*)/, '').trim();
+      
+                if (query.length < 3) return;
+      
+                debounceTimer = setTimeout(async () => {
+                    try {
+                        const url = `https://api.locationiq.com/v1/autocomplete?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&limit=5&dedupe=1`;
+                        const res = await fetch(url);
+                        if (!res.ok) return;
+                        const data = await res.json();
+      
+                        suggestionsElem.innerHTML = '';
+      
+                        if (data && data.length > 0) {
+                            data.forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'suggestion-item';
+                                
+                                div.innerText = houseNumber + item.display_name;
+                                
+                                div.addEventListener('click', () => {
+                                    inputElem.value = houseNumber + item.display_name;
+                                    suggestionsElem.innerHTML = '';
+                                    
+                                    const coordsObj = {
+                                        lat: parseFloat(item.lat),
+                                        lng: parseFloat(item.lon),
+                                        displayName: houseNumber + item.display_name
+                                    };
+      
+                                    if (type === 'A') selectedLocA = coordsObj;
+                                    if (type === 'B') selectedLocB = coordsObj;
+      
+                                    autoCalculateRoute();
+                                });
+                                suggestionsElem.appendChild(div);
+                            });
+                        }
+                    } catch (err) {
+                        console.error("Autocomplete processing error: ", err);
+                    }
+                }, 400);
+            });
+      
+            document.addEventListener('click', (e) => {
+                if (e.target !== inputElem) suggestionsElem.innerHTML = '';
+            });
+      
+            inputElem.addEventListener('blur', () => {
+                setTimeout(autoCalculateRoute, 300);
+            });
+        }
+      
+        async function fetchFallbackCoordinates(addressText) {
+            if (!addressText) return null;
+            let houseNumberMatch = addressText.match(/^(\d+\s*)/);
+            let houseNumber = houseNumberMatch ? houseNumberMatch[1] : '';
+            let query = addressText.replace(/^(\d+\s*)/, '').trim();
+      
+            try {
+                const url = `https://us1.locationiq.com/v1/search?key=${LIQ_TOKEN}&q=${encodeURIComponent(query)}&format=json&limit=1`;
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    return {
+                        lat: parseFloat(data[0].lat),
+                        lng: parseFloat(data[0].lon),
+                        displayName: houseNumber + data[0].display_name
+                    };
+                }
+            } catch (e) {
+                console.error("Fallback processing error", e);
+            }
+            return null;
+        }
+      
+        async function autoCalculateRoute() {
+            const addrA = document.getElementById('from').value.trim();
+            const addrB = document.getElementById('to').value.trim();
+      
+            if (addrA.length < 3 || addrB.length < 3) return;
+      
+            try {
+                let locA = selectedLocA && selectedLocA.displayName === addrA ? selectedLocA : await fetchFallbackCoordinates(addrA);
+                let locB = selectedLocB && selectedLocB.displayName === addrB ? selectedLocB : await fetchFallbackCoordinates(addrB);
+      
+                if (!locA || !locB) return;
+      
+                const routeUrl = `https://us1.locationiq.com/v1/directions/driving/${locA.lng},${locA.lat};${locB.lng},${locB.lat}?key=${LIQ_TOKEN}&overview=full&geometries=geojson`;
+                const routeResponse = await fetch(routeUrl);
+                const routeData = await routeResponse.json();
+      
+                if (routeData.routes && routeData.routes.length > 0) {
+                    const route = routeData.routes[0];
+                    const totalKm = Math.ceil(route.distance / 1000) + 3;
+      
+                    activeMarkers.forEach(m => map.removeLayer(m));
+                    if (activePolyline) map.removeLayer(activePolyline);
+                    activeMarkers = [];
+      
+                    document.getElementById('map-route-title').innerHTML = `${locA.displayName.split(',')[0]} <span style="color:#9CA3AF; margin:0 4px;">→</span> ${locB.displayName.split(',')[0]}`;
+                    document.getElementById('map-route-distance').innerText = `${totalKm} km`;
+      
+                    const pinA = L.marker([locA.lat, locA.lng], { icon: customLogoIcon }).addTo(map);
+                    const pinB = L.marker([locB.lat, locB.lng], { icon: customLogoIcon }).addTo(map);
+                    activeMarkers.push(pinA, pinB);
+      
+                    const routeCoords = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
+      
+                    activePolyline = L.polyline(routeCoords, {
+                        color: '#10B981', 
+                        weight: 5,
+                        opacity: 0.85
+                    }).addTo(map);
+      
+                    map.fitBounds(activePolyline.getBounds(), { padding: [30, 30] });
+                }
+            } catch (error) {
+                console.error("Auto calculation stream error:", error);
+            }
+        }
+      </script>
 
 
 
